@@ -9,17 +9,16 @@ POSTGRES_USER ?= postgres
 
 create_db:
 	# Creating the PostgreSQL database
-	sudo -u $(POSTGRES_USER) createdb $(DB_NAME) 
+	@sudo -u $(POSTGRES_USER) createdb $(DB_NAME) 
 
 	# Creating the PostgreSQL user with a password and configure role
-	sudo -u $(POSTGRES_USER) psql -c "CREATE USER $(DB_USER) WITH PASSWORD '$(DB_PASSWORD)';"
-	sudo -u $(POSTGRES_USER) psql -c "ALTER ROLE $(DB_USER) SET client_encoding TO 'utf8';"
-	sudo -u $(POSTGRES_USER) psql -c "ALTER ROLE $(DB_USER) SET default_transaction_isolation TO 'read committed';"
-	sudo -u $(POSTGRES_USER) psql -c "ALTER ROLE $(DB_USER) SET timezone TO 'UTC';"
+	@sudo -u $(POSTGRES_USER) psql -c "CREATE USER $(DB_USER) WITH PASSWORD '$(DB_PASSWORD)';"
+	@sudo -u $(POSTGRES_USER) psql -c "ALTER ROLE $(DB_USER) SET client_encoding TO 'utf8';"
+	@sudo -u $(POSTGRES_USER) psql -c "ALTER ROLE $(DB_USER) SET default_transaction_isolation TO 'read committed';"
+	@sudo -u $(POSTGRES_USER) psql -c "ALTER ROLE $(DB_USER) SET timezone TO 'UTC';"
 
 	# Granting privileges to the user on the database
-	sudo -u $(POSTGRES_USER) psql -c "GRANT ALL PRIVILEGES ON DATABASE $(DB_NAME) TO $(DB_USER);"
-	echo; \
+	@sudo -u $(POSTGRES_USER) psql -c "GRANT ALL PRIVILEGES ON DATABASE $(DB_NAME) TO $(DB_USER);"
+	@echo; \
 	echo "Created database '$(DB_NAME)' with the user '$(DB_USER)' successfully!"; \
 	echo;
-
